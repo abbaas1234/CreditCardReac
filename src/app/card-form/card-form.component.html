@@ -1,11 +1,24 @@
 <p>card-form works!</p>
 <form [formGroup]="cardForm">
     <input type="text" formControlName="name">
+    <ng-container *ngIf="cardForm.get('name').touched || cardForm.get('name').dirty">
+        <div *ngIf="cardForm.get('name')?.errors?.required">
+            Value is Required
+        </div>
+        <div *ngIf="cardForm.get('name')?.errors?.minlength">
+            Value from {{ cardForm.get('name').errors?.minlength.actualLength }} to 
+            {{ cardForm.get('name').errors?.minlength.requiredLength}}
+        </div>
+        <div *ngIf="cardForm.get('name')?.errors?.maxlength">
+            Value from {{ cardForm.get('name').errors?.maxlength.actualLength }} to 
+            {{ cardForm.get('name').errors?.maxlength.requiredLength}}
+        </div>
+    </ng-container>
 </form>
 
 
 <!-- {{ cardForm.controls | json }} <br /> -->
 <!-- {{ cardForm.get('name') | json }} <br /> -->
-{{ cardForm.value | json }} <br />
+<!-- {{ cardForm.value | json }} <br />
 {{ cardForm.valid | json }} <br />
-{{ cardForm.controls.name.errors | json}}
+{{ cardForm.controls.name.errors | json}} -->
